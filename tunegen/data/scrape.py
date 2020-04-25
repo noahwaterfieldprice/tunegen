@@ -7,7 +7,7 @@ from typing import Dict
 import bs4
 import requests
 
-from .tune import Tune
+from .tune import ABC_FIELD_ID_NAMES, Tune
 
 __all__ = ("TuneParser",)
 
@@ -22,14 +22,6 @@ class TuneParser:
     """
 
     base_url = "http://thesession.org/tunes"
-    field_id_to_name = {
-        "X": "setting",
-        "T": "title",
-        "R": "tunetype",
-        "M": "meter",
-        "L": "unit_note_length",
-        "K": "key",
-    }
 
     def __init__(self, session_id: int) -> None:
         self.session_id = session_id
@@ -46,13 +38,13 @@ class TuneParser:
         tune_args = self._parse_metadata()
         tune_args["notes"] = self._parse_notes()
         tune_args["session_id"] = self.session_id
-        return Tune(**tune_args)
+        return Tune(**tune_args)g
 
     def _parse_metadata(self) -> Dict[str, str]:
         metadata_pattern = re.compile(r"(\w): (.+?)\n")
         metadata = {}
         for field_id, field_value in metadata_pattern.findall(self.abc):
-            field_name = self.field_id_to_name[field_id]
+            field_name = ABC_FIELD_ID_NAMES[field_id]
             metadata[field_name] = field_value
         return metadata
 
