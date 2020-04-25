@@ -1,0 +1,19 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+pip-wheel-metadata/
+
+# Testing
+.coverage
+.pytest_cache
+.tox/
+.mypy_cache
+htmlcov/
+
+# PyCharm project files
+.idea/
